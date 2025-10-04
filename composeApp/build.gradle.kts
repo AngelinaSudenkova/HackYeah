@@ -1,5 +1,12 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
+
+val envFile = rootProject.file(".env")
+val env = Properties()
+if (envFile.exists()) {
+    envFile.inputStream().use { env.load(it) }
+}
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -53,28 +60,52 @@ android {
 
     defaultConfig {
         applicationId = "gdg.pjatk.pw.demo"
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        minSdk = 24
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+
+        // BuildConfig field for Mapbox token
+        buildConfigField(
+            "String",
+            "MAPBOX_ACCESS_TOKEN",
+            "\"${env["MAPBOX_ACCESS_TOKEN"] ?: ""}\""
+        )
+
+        // Resource string for XML layouts
+        resValue(
+            "string",
+            "mapbox_access_token",
+            env["MAPBOX_ACCESS_TOKEN"]?.toString() ?: ""
+        )
     }
+
+    buildFeatures {
+        buildConfig = true // ✅ enable BuildConfig generation
+        compose = true
+    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
+
 dependencies {
     debugImplementation(compose.uiTooling)
+    implementation("com.mapbox.maps:android-ndk27:11.15.2")
+    implementation("com.mapbox.extension:maps-compose-ndk27:11.15.2")
 }
-
