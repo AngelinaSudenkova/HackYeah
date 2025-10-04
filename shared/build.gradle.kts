@@ -19,7 +19,10 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            // put your Multiplatform dependencies here
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+            implementation("cafe.adriel.voyager:voyager-screenmodel:1.0.0")
+            implementation("cafe.adriel.voyager:voyager-navigator:1.0.0")
+            implementation("cafe.adriel.voyager:voyager-transitions:1.0.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
