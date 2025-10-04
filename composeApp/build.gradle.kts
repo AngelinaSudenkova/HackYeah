@@ -36,6 +36,8 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("com.mapbox.maps:android:11.15.2")
+            implementation("com.mapbox.extension:maps-compose:11.15.2")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
