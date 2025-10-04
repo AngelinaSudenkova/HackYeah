@@ -15,8 +15,8 @@ fun main() {
 fun Application.module() {
     routing {
         get("/") {
-            val res = agent.run("Hi")
-            print(res)
+            val agent = getAgentOrMessage()
+            call.respond(agent)
             call.respondText("Ktor: ${Greeting().greet()}")
         }
     }
