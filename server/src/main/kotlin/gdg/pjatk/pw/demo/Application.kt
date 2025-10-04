@@ -11,9 +11,12 @@ fun main() {
         .start(wait = true)
 }
 
+
 fun Application.module() {
     routing {
         get("/") {
+            val res = agent.run("Hi")
+            print(res)
             call.respondText("Ktor: ${Greeting().greet()}")
         }
     }
