@@ -78,6 +78,20 @@ android {
             "mapbox_access_token",
             env["MAPBOX_ACCESS_TOKEN"]?.toString() ?: ""
         )
+
+        // BuildConfig field for Mapbox token
+        buildConfigField(
+            "String",
+            "MAPBOX_DOWNLOADS_TOKEN",
+            "\"${env["MAPBOX_DOWNLOADS_TOKEN"] ?: ""}\""
+        )
+
+        // Resource string for XML layouts
+        resValue(
+            "string",
+            "mapbox_downloads_token",
+            env["MAPBOX_DOWNLOADS_TOKEN"]?.toString() ?: ""
+        )
     }
 
     buildFeatures {
@@ -108,4 +122,5 @@ dependencies {
     debugImplementation(compose.uiTooling)
     implementation("com.mapbox.maps:android-ndk27:11.15.2")
     implementation("com.mapbox.extension:maps-compose-ndk27:11.15.2")
+    implementation("com.mapbox.navigationcore:android-ndk27:3.16.0-beta.1")
 }
