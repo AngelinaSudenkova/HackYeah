@@ -47,6 +47,11 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(projects.shared)
+
+            implementation("cafe.adriel.voyager:voyager-navigator:1.1.0-beta03")
+            implementation("cafe.adriel.voyager:voyager-transitions:1.1.0-beta03")
+            implementation("cafe.adriel.voyager:voyager-screenmodel:1.0.0")
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
