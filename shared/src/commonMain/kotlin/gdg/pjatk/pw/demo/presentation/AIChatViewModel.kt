@@ -11,6 +11,8 @@ import kotlinx.coroutines.launch
 data class ChatMessage(val fromUser: Boolean, val text: String)
 
 class AIChatViewModel : ScreenModel {
+
+
     private val _messages = MutableStateFlow<List<ChatMessage>>(emptyList())
     val messages = _messages.asStateFlow()
 
