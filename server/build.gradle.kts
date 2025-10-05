@@ -7,17 +7,11 @@ plugins {
     application
 }
 
-fun loadLocalProperties(): java.util.Properties {
-    val properties = Properties()
-    val localPropertiesFile = project.file("local.properties")
-    if (localPropertiesFile.exists()) {
-        localPropertiesFile.inputStream().use { properties.load(it) }
-    }
-    print(properties)
-    return properties
-}
 
-val localProperties = loadLocalProperties()
+val localProperties = Properties()
+localProperties.load(rootProject.file("local.properties").inputStream())
+
+val geminiApiKey = localProperties.getProperty("geminiApiKey")
 
 group = "gdg.pjatk.pw.demo"
 version = "1.0.0"
