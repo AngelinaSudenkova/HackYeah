@@ -14,6 +14,7 @@ sealed class MainRouteState {
 }
 
 class MainRouteViewModel : ScreenModel {
+
     private val _state = MutableStateFlow<MainRouteState>(MainRouteState.Loading)
     val state = _state.asStateFlow()
 
@@ -22,6 +23,7 @@ class MainRouteViewModel : ScreenModel {
     }
 
     private fun loadPois() {
+
         // fake async load
         MainScope().launch {
             delay(1000)
