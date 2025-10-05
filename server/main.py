@@ -31,7 +31,7 @@ def ask_ai(messages: list[Message]):
 
 @app.get("/sight")
 def get_sight(sight: str):
-    response: types.GenerateContentResponse = client.models.generate_content(model="gemini-2.5-flash", contents=sight, config=types.GenerateContentConfig(
+    response = client.models.generate_content(model="gemini-2.5-flash", contents=sight, config=types.GenerateContentConfig(
         system_instruction="You are a helpful assistant that can answer questions about sights/attractions/places of interest the user is asking you about." \
         "Prefer interesting, but most importantly, factual stories to a lot of facts.",
         temperature=0.1

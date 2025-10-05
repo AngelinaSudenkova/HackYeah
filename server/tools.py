@@ -1,14 +1,8 @@
 import requests
 import json
 
-# Define the Overpass API endpoint
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
-
-
-# Define the Overpass QL query to find all 'amenity=cafe' within a bounding box
-# Bounding box is defined as (south, west, north, east)
-# This example covers a small area in Paris, France.
 
 get_place_suggestions_declaration = {
     "name": "get_place_suggestions",
@@ -59,7 +53,7 @@ def get_place_suggestions(osm_tags: list[dict]):
         params = {
             'q': geographical_constraints[0],
             'format': 'json',
-            'limit': 1  # Get only the most relevant result
+            'limit': 1
         }
         headers = {
             'User-Agent': 'My-LLM-App-Name/1.0'
@@ -67,28 +61,17 @@ def get_place_suggestions(osm_tags: list[dict]):
         try:
             response = requests.get(NOMINATIM_URL, params=params, headers=headers)
             response.raise_for_status()
-            
             data = response.json()
-
-            # The bounding box is in the format [min_lat, max_lat, min_lon, max_lon]
-            bbox_str = data[0]['boundingbox']
-            
-            # Convert the string values to floats
-            bbox = [float(coord) for coord in bbox_str]
-            
-            print(bbox)
         except requests.exceptions.RequestException as e:
-            print(f"Error fetching data from Nominatim: {e}")
-            return None
+            return {"error": f"An error occurred: {e}"}
         except (json.JSONDecodeError, KeyError) as e:
-            print(f"Failed to parse Nominatim response: {e}")
-            return None
-
+            return {"error": "Failed to decode JSON from the response."}
+        bbox_str = data[0]['boundingbox']
+        bbox = [float(coord) for coord in bbox_str]
     for tag in tags_list:
         key = tag['key']
         value = tag['value']
         tag_queries.append(f'  nwr["{key}"="{value}"]({bbox[0]},{bbox[2]},{bbox[1]},{bbox[3]});')
-    print(tag_queries)
     overpass_query = f"""
     [out:json];
     (
