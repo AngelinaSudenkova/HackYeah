@@ -19,19 +19,20 @@ fun MainRouteScreen(cityId: String, personaText: String, tags: List<String>) {
     val viewModel = remember { MainRouteViewModel() }
     val state by viewModel.state.collectAsState()
 
-    when (val s = state) {
-        is MainRouteState.Loading -> Box(Modifier.fillMaxSize()) {
-            CircularProgressIndicator(Modifier.align(Alignment.Center))
-        }
-        is MainRouteState.Ready -> Column(Modifier.fillMaxSize().padding(20.dp)) {
-            Text("City: $cityId")
-            Button(onClick = { nav.push(RoutePreview(cityId, s.pois)) }) {
-                Text("Build a route")
-            }
-            Button(onClick = { nav.push(AIChat(s.pois.first())) }) {
-                Text("Open place details")
-            }
-        }
-        is MainRouteState.Error -> Text("Error: ${s.message}")
-    }
+
+//    when (val s = state) {
+//        is MainRouteState.Loading -> Box(Modifier.fillMaxSize()) {
+//            CircularProgressIndicator(Modifier.align(Alignment.Center))
+//        }
+//        is MainRouteState.Ready -> Column(Modifier.fillMaxSize().padding(20.dp)) {
+//            Text("City: $cityId")
+//            Button(onClick = { nav.push(RoutePreview(cityId, s.pois)) }) {
+//                Text("Build a route")
+//            }
+//            Button(onClick = { nav.push(AIChat(s.pois.first())) }) {
+//                Text("Open place details")
+//            }
+//        }
+//        is MainRouteState.Error -> Text("Error: ${s.message}")
+//    }
 }

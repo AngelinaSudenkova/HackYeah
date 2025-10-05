@@ -1,7 +1,11 @@
 package gdg.pjatk.pw.demo.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import cafe.adriel.voyager.core.screen.Screen
+import gdg.pjatk.pw.demo.presentation.CountryViewModel
 import gdg.pjatk.pw.demo.screens.AIChatScreen
 import gdg.pjatk.pw.demo.screens.BuildingRouteScreen
 import gdg.pjatk.pw.demo.screens.CityPickerScreen
@@ -20,7 +24,13 @@ object Persona : Screen {
 }
 
 data class CountryPicker(val preselected: String? = null) : Screen {
-    @Composable override fun Content() = CountryPickerScreen(preselected)
+    @Composable
+    override fun Content() {
+        val vm = remember { CountryViewModel() }
+        val state by vm.state.collectAsState()
+//        CountryPickerScreen(state)
+        CountryPickerScreen(preselected)
+    }
 }
 
 data class CityPicker(val countryCode: String) : Screen {
