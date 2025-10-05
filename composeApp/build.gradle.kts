@@ -29,6 +29,9 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("com.mapbox.maps:android-ndk27:11.15.2")
+            implementation("com.mapbox.extension:maps-compose-ndk27:11.15.2")
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -45,6 +48,7 @@ kotlin {
             implementation("cafe.adriel.voyager:voyager-transitions:1.1.0-beta03")
             implementation("cafe.adriel.voyager:voyager-screenmodel:1.0.0")
 
+            implementation("com.google.code.gson:gson:2.10.1")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

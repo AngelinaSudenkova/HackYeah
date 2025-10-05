@@ -33,7 +33,6 @@ fun OnboardingStartScreen() {
         Font(Res.font.plus_jakarta_sans_semibold, weight = FontWeight.SemiBold)
     )
 
-    // manual palette
     val bg = Color(0xFF000000)
     val textPrimary = Color(0xFFFFFFFF)
     val textSecondary = textPrimary.copy(alpha = 0.72f)
@@ -90,7 +89,6 @@ fun OnboardingStartScreen() {
             )
         }
 
-        // White pill button with black text
         Button(
             onClick = { nav.push(Persona) },
             shape = RoundedCornerShape(100),
