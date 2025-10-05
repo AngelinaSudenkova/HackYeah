@@ -50,6 +50,7 @@ get_place_suggestions_declaration = {
         "required": ["osm_tags"],
     },
 }
+
 def get_place_suggestions(osm_tags: list[dict]):
     tags_list = osm_tags.get("tags", [])
     geographical_constraints = osm_tags.get("geographical_constraints", [])
@@ -106,47 +107,4 @@ def get_place_suggestions(osm_tags: list[dict]):
         return {"error": f"An error occurred: {e}"}
     except json.JSONDecodeError:
         return {"error": "Failed to decode JSON from the response."}
-
-    
-
-
-# def query_place_objects(places: list[]):
-#     overpass_query = """
-#     [out:json];
-#     (
-#     node["amenity"="cafe"](50.7,7.1,50.8,7.25);
-#     way["amenity"="cafe"](50.7,7.1,50.8,7.25);
-#     relation["amenity"="cafe"](50.7,7.1,50.8,7.25);
-#     );
-#     out body;
-#     """
-
-#     # Prepare the data to be sent in the POST request
-#     data = {'data': overpass_query}
-
-#     try:
-#         # Send the POST request to the Overpass API
-#         response = requests.post(OVERPASS_URL, data=data)
-
-#         # Raise an HTTPError for bad responses (4xx or 5xx)
-#         response.raise_for_status()
-
-#         # Parse the JSON response
-#         data = response.json()
-
-#         # Process and print the results
-#         print(f"Found {len(data['elements'])} cafes.")
-#         for element in data['elements']:
-#             if 'tags' in element and 'name' in element['tags']:
-#                 name = element['tags']['name']
-#                 lat = element.get('lat', 'N/A')
-#                 lon = element.get('lon', 'N/A')
-#                 print(f"Name: {name}, Lat: {lat}, Lon: {lon}")
-#             else:
-#                 print(f"Found an unnamed cafe with ID: {element['id']}")
-
-#     except requests.exceptions.RequestException as e:
-#         print(f"An error occurred: {e}")
-#     except json.JSONDecodeError:
-#         print("Failed to decode JSON from the response.")
 
